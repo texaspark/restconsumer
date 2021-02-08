@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON to HTML</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div clss="table-responsive">
+        <h1>Seokwon Park OCI Instances</h1>
+        <br/>
+        <table class="table table-bordered table-striped" id="instance-table">
+            <tr>
+                <th>Display Name</th>
+                <th>Instance OCID</th>
+                <th>Region</th>
+                <th>Shape</th>
+                <th>Compartment ID</th>
+                <th>Time Created</th>
+            </tr>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+ $(document).ready(function(){
+    $.getJSON("http://localhost/v1/instance",function(data){
+        var instance_data = ' ';
+        $.each(data, function (key, value){
+            instance_data += '<tr>';
+            instance_data += '<td>'+value.displayName+'</td>';
+            instance_data += '<td>'+value.id+'</td>';
+            instance_data += '<td>'+value.region+'</td>';
+            instance_data += '<td>'+value.shape+'</td>';
+            instance_data += '<td>'+value.compartmentId+'</td>';
+            instance_data += '<td>'+value.timeCreated+'</td>';
+            instance_data += '</tr>';
+        });
+        console.log(instance_data);
+        $('#instance-table').append(instance_data);
+     });
+ });
+</script>
